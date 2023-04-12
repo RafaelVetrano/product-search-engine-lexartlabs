@@ -1,0 +1,6 @@
+.homePageStl {
+  display: flexbox;
+  border: solid black;
+  width: 900px;
+  height: 700px;
+}
