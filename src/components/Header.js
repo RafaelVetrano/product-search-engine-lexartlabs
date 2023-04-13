@@ -1,24 +1,26 @@
 import React from 'react';
+import style from './header.modules.css';
 
 function Header() {
   return (
-    <div>
+    <header className={ style }>
       <select name="categories">
-        <option value="volvo">Mobile</option>
-        <option value="saab">Refrigerator</option>
-        <option value="mercedes">TV</option>
+        <option value="mobile">Mobile</option>
+        <option value="refrigerator">Refrigerator</option>
+        <option value="TV">TV</option>
       </select>
 
       <select name="webSite">
-        <option value="volvo">Mercado Livre</option>
-        <option value="saab">Buscapé</option>
+        <option value="mercado livre">Mercado Livre</option>
+        <option value="buscape">Buscapé</option>
       </select>
+
       <div>
         <input type="text" name="search" />
         <button type="button">Buscar</button>
       </div>
 
-    </div>
+    </header>
   );
 }
 
