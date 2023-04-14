@@ -7,9 +7,9 @@ import Card from '../components/Card';
 function Home() {
   const { itens } = useContext(appContext);
 
-  if (itens === undefined) {
-    return <div>Carregando...</div>;
-  }
+  // if (itens.length === 0) {
+  //   return <div>Carregando...</div>;
+  // }
 
   return (
     <main className={ Style }>

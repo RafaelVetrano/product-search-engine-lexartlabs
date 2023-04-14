@@ -3,23 +3,49 @@ import PropTypes from 'prop-types';
 import appContext from './appContext';
 
 function ItensProvider({ children }) {
-  const [itens, setItens] = useState(undefined);
+  const [data, setData] = useState([]);
+  const [itens, setItens] = useState([]);
+  const [endpoint, setEndpoint] = useState('https://api.mercadolibre.com/sites/MLB/search?category=MLB1051');
+  const [category, setCategory] = useState('');
+  const [search, setSearch] = useState({
+    searchByName: {
+      name: '',
+    },
+  });
+
+  useEffect(() => {
+    const searchByName = () => {
+      const test = data.filter((i) => (
+        i.title.match(new RegExp(search.searchByName.name, 'i'))
+      ));
+      setItens(test);
+    };
+    searchByName();
+  }, [search]);
+
+  useEffect(() => {
+    const changeCategory = async () => {
+      setEndpoint(`https://api.mercadolibre.com/sites/MLB/search?category=${category}`);
+    };
+    changeCategory();
+  }, [category]);
 
   useEffect(() => {
     const fetchApi = async () => {
-      const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?category=MLB1000';
       const response = await fetch(endpoint);
-      const data = await response.json();
-      setItens(data.results);
+      const responseJSON = await response.json();
+      setItens(responseJSON.results);
+      setData(responseJSON.results);
     };
     fetchApi();
-  }, []);
-
-  // eletronicos api: https://api.mercadolibre.com/sites/MLB/search?category=MLB1000
+  }, [endpoint]);
 
   const value = useMemo(() => ({
     itens,
-  }), [itens]);
+    setCategory,
+    search,
+    setSearch,
+  }), [search, itens]);
 
   return (
     <appContext.Provider value={ value }>

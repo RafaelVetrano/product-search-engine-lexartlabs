@@ -18,7 +18,7 @@ function Card({ permalink, price, thumbnail, title }) {
 Card.propTypes = {
   thumbnail: PropTypes.string,
   permalink: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   title: PropTypes.string,
 };
 
