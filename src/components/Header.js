@@ -3,15 +3,20 @@ import appContext from '../context/appContext';
 import style from './header.modules.css';
 
 function Header() {
-  const { setCategoryId, setSearch, search, setWeb } = useContext(appContext);
+  const {
+    setCategoryId,
+    setSearch,
+    search,
+    setWeb,
+  } = useContext(appContext);
 
   const handleClick = ({ target }) => {
     const { value } = target;
     if (value === 'mobile') {
-      return setCategoryId('MLB1051');
+      setCategoryId('MLB1051');
     }
     if (value === 'refrigerator') {
-      return setCategoryId('MLB181294');
+      setCategoryId('MLB181294');
     }
     if (value === 'TV') {
       setCategoryId('MLB1002');

@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const HistoricModel = require('./models/historicModel');
 
 const app = express();
@@ -19,6 +20,8 @@ mongoose.connect('mongodb://localhost/my_database', {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.post('/data', async (req, res) => {
   try {

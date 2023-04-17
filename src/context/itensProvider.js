@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import appContext from './appContext';
+import addNewSearch from '../util';
 
 function ItensProvider({ children }) {
   const [web, setWeb] = useState('Mercado Livre');
@@ -41,10 +42,11 @@ function ItensProvider({ children }) {
       setItens(responseJSON.results);
       setData(responseJSON.results);
       setCategory(responseJSON.filters[0].values[0].name);
+      addNewSearch(category, web);
       setIsLoading(false);
     };
     fetchApi();
-  }, [endpoint]);
+  }, [endpoint, category, web]);
 
   const value = useMemo(() => ({
     itens,
