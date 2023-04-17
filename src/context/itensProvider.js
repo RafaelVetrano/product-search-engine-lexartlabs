@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import appContext from './appContext';
 
 function ItensProvider({ children }) {
+  const [web, setWeb] = useState('Mercado Livre');
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [itens, setItens] = useState([]);
   const [endpoint, setEndpoint] = useState('https://api.mercadolibre.com/sites/MLB/search?category=MLB1051');
-  const [category, setCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('MLB1051');
+  const [category, setCategory] = useState('mobile');
   const [search, setSearch] = useState({
     searchByName: {
       name: '',
@@ -21,31 +24,38 @@ function ItensProvider({ children }) {
       setItens(test);
     };
     searchByName();
-  }, [search]);
+  }, [search, data]);
 
   useEffect(() => {
     const changeCategory = async () => {
-      setEndpoint(`https://api.mercadolibre.com/sites/MLB/search?category=${category}`);
+      setEndpoint(`https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}`);
     };
     changeCategory();
-  }, [category]);
+  }, [categoryId]);
 
   useEffect(() => {
     const fetchApi = async () => {
+      setIsLoading(true);
       const response = await fetch(endpoint);
       const responseJSON = await response.json();
       setItens(responseJSON.results);
       setData(responseJSON.results);
+      setCategory(responseJSON.filters[0].values[0].name);
+      setIsLoading(false);
     };
     fetchApi();
   }, [endpoint]);
 
   const value = useMemo(() => ({
     itens,
-    setCategory,
+    setCategoryId,
     search,
     setSearch,
-  }), [search, itens]);
+    isLoading,
+    web,
+    setWeb,
+    category,
+  }), [search, itens, isLoading, web, category]);
 
   return (
     <appContext.Provider value={ value }>

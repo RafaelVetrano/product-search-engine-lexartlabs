@@ -3,18 +3,24 @@ import appContext from '../context/appContext';
 import style from './header.modules.css';
 
 function Header() {
-  const { setCategory, setSearch, search } = useContext(appContext);
+  const { setCategoryId, setSearch, search, setWeb } = useContext(appContext);
 
   const handleClick = ({ target }) => {
     const { value } = target;
     if (value === 'mobile') {
-      return setCategory('MLB1051');
+      return setCategoryId('MLB1051');
     }
     if (value === 'refrigerator') {
-      return setCategory('MLB181294');
+      return setCategoryId('MLB181294');
     }
     if (value === 'TV') {
-      setCategory('MLB1002');
+      setCategoryId('MLB1002');
+    }
+    if (value === 'Mercado Livre') {
+      setWeb('Mercado Livre');
+    }
+    if (value === 'Buscape') {
+      setWeb('Buscape');
     }
   };
 
@@ -38,9 +44,12 @@ function Header() {
         <option value="TV">TV</option>
       </select>
 
-      <select name="webSite">
-        <option value="mercado livre">Mercado Livre</option>
-        <option value="buscape">Buscapé</option>
+      <select
+        name="webSite"
+        onClick={ (e) => handleClick(e) }
+      >
+        <option value="Mercado Livre">Mercado Livre</option>
+        <option value="Buscape">Buscapé</option>
       </select>
 
       <div>
@@ -51,7 +60,6 @@ function Header() {
           placeholder="BUSCAR..."
           onChange={ (e) => handleChange(e) }
         />
-        <button type="button">Buscar</button>
       </div>
 
     </header>
